@@ -27,6 +27,6 @@ public class ModelDetailPage extends AppCompatActivity {
 
         tvTitleDetail.setText(title);
         tvSynopsisDetail.setText(synopsis);
-        Glide.with(this).load(imageUrl).into(ivPosterDetail);
+        Glide.with(this).load(imageUrl).into(ivPosterDetail); //Using Glide in order to set the image from the image url
     }
 }

@@ -88,15 +88,16 @@ public class MainActivity extends AppCompatActivity  {
         protected ArrayList<AnimeModel> doInBackground(String... params) {
 
             String searchQuery = params[0];
-            String apiUrl = "https://api.jikan.moe/v4/anime?q=" + searchQuery + "&sfw";
+            String apiUrl = "https://api.jikan.moe/v4/anime?q=" + searchQuery + "&sfw"; // the api format for Jikan
             ArrayList<AnimeModel> animeList = new ArrayList<>();
 
-            try {
+            try { //connect to online
                 URL url = new URL(apiUrl);
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("GET");
                 connection.connect();
 
+                //Being able to read the format that was return through stringBuilder
                 BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
                 StringBuilder sb = new StringBuilder();
                 String line;
@@ -104,17 +105,18 @@ public class MainActivity extends AppCompatActivity  {
                     sb.append(line);
                 }
 
-                Log.d("Test", sb.toString());
+                //Log.d("Test", sb.toString());
+
                 JSONObject jsonObject = new JSONObject(sb.toString());
                 JSONArray animeArray = jsonObject.getJSONArray("data");
-                for (int i = 0; i < animeArray.length(); i++) {
+                for (int i = 0; i < animeArray.length(); i++) { //Loop through the array of data returned
                     JSONObject anime = animeArray.getJSONObject(i);
-                    AnimeModel animeModel = new AnimeModel("random", "random", "random");
-                    animeModel.setTitle(anime.getString("title_english"));
-                    animeModel.setSynopsis(anime.getString("synopsis"));
-                    JSONObject images = anime.getJSONObject("images");
+                    AnimeModel animeModel = new AnimeModel("random", "random", "random");//intialize each object with AnimeModel
+                    animeModel.setTitle(anime.getString("title_english")); // This gets the title
+                    animeModel.setSynopsis(anime.getString("synopsis")); // This gets synopsis
+                    JSONObject images = anime.getJSONObject("images");// in order to ge to the specific url need to go though images and jpg
                     JSONObject jpg = images.getJSONObject("jpg");
-                    String imageUrl = jpg.getString("image_url");
+                    String imageUrl = jpg.getString("image_url");//this gets the image
                     animeModel.setImageUrl(imageUrl);
                     animeList.add(animeModel);
                 }
