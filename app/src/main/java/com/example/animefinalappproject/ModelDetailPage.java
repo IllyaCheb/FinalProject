@@ -10,6 +10,7 @@ import com.bumptech.glide.Glide;
 
 public class ModelDetailPage extends AppCompatActivity {
 
+    //This simple second activity just has a bit more info more precisely the title and synopsis
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

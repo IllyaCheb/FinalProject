@@ -74,14 +74,16 @@ public class MainActivity extends AppCompatActivity  {
         InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(etRequest.getWindowToken(), 0);
     }
-
+    // This is the main method which makes the up function by callin the API and retrieving the info
     private class FetchAnimeDataTask extends AsyncTask<String, Void, ArrayList<AnimeModel>> {
 
+        //Progress Bar
         @Override
         protected void onPreExecute() {
             progressBar.setVisibility(View.VISIBLE);
         }
 
+        //Main Code which makes the call to API and stores JSON objects
         @Override
         protected ArrayList<AnimeModel> doInBackground(String... params) {
 
@@ -123,6 +125,7 @@ public class MainActivity extends AppCompatActivity  {
             return animeList;
         }
 
+        //After getting all the info either we will get our scrolling list of anime or an error
         @Override
         protected void onPostExecute(ArrayList<AnimeModel> animeList) {
             progressBar.setVisibility(View.GONE);
